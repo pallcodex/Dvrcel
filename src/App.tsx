@@ -27,7 +27,7 @@ export default function App() {
       <header className="glass sticky top-0 z-20 flex items-center justify-between border-b px-4 py-3 md:hidden" style={{ paddingTop: 'max(.75rem, env(safe-area-inset-top))' }}>
         <div className="flex items-center gap-2"><Logo size={26} /><span className="font-bold">Dvrcel</span></div><div className="flex gap-2"><LangToggle /><ThemeToggle t={theme} /></div></header>
       <main className="px-4 pb-28 pt-6 md:px-10 md:pb-12 md:pt-10">
-        {gate && page !== 'dashboard' ? <div className="page mx-auto max-w-lg"><div className="card p-6 text-center"><p className="mb-4 text-sm text-mute">{t('g.text')}</p><button className="btn-p" onClick={() => go('deploy')}>{t('g.btn')}</button></div></div> : view}</main></div>
+        {gate ? <div className="page mx-auto max-w-lg"><div className="card p-6 text-center"><p className="mb-4 text-sm text-mute">{t('g.text')}</p><button className="btn-p" onClick={() => go('deploy')}>{t('g.btn')}</button></div></div> : view}</main></div>
     <nav className="glass fixed inset-x-0 bottom-0 z-30 grid grid-cols-5 border-t md:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
       {NAV.map(([id, I]) => { const l = t(`nav.${id}` as 'nav.deploy'); return <button key={id} onClick={() => go(id)} className={`flex min-h-[56px] flex-col items-center justify-center gap-0.5 text-[11px] font-medium ${page === id ? 'text-acc' : 'text-mute'}`}><I size={20} />{l}</button> })}</nav>
   </div></ToastProvider>
