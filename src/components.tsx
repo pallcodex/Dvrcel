@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react'
-import { Sun, Moon, X } from 'lucide-react'
+import { Sun, Moon, X, ChevronDown, Check, Languages } from 'lucide-react'
+import { useI18n } from './lib/i18n'
 import { stateKind } from './lib/api'
 
 export const Logo = ({ size = 28 }: { size?: number }) => (
@@ -12,13 +13,33 @@ export function useTheme() {
   const set = (d: boolean) => { document.documentElement.classList.toggle('dark', d); try { localStorage.setItem('dvrcel-theme', d ? 'dark' : 'light') } catch { /* */ } setDark(d) }
   return { dark, set, toggle: () => set(!dark) }
 }
-export const ThemeToggle = ({ t }: { t: ReturnType<typeof useTheme> }) => (
-  <button className="btn-g !px-0 w-11" onClick={t.toggle} aria-label="Ganti tema">{t.dark ? <Sun size={18} /> : <Moon size={18} />}</button>)
+export const ThemeToggle = ({ t }: { t: ReturnType<typeof useTheme> }) => { const { t: tr } = useI18n(); return (
+  <button className="btn-g !px-0 w-11" onClick={t.toggle} aria-label={tr('theme')}>{t.dark ? <Sun size={18} /> : <Moon size={18} />}</button>) }
+export const LangToggle = () => { const { lang, setLang, t } = useI18n(); return (
+  <button className="btn-g gap-1.5 !px-3" onClick={() => setLang(lang === 'id' ? 'en' : 'id')} aria-label={t('lang')}><Languages size={16} /><span className="text-xs font-bold uppercase">{lang}</span></button>) }
+
+// UI pilihan buatan sendiri (pengganti dropdown/action sheet bawaan browser)
+export function Select({ value, onChange, options, label }: { value: string; onChange: (v: string) => void; options: [string, string][]; label: string }) {
+  const [open, setOpen] = useState(false), cur = options.find(o => o[0] === value)
+  useEffect(() => { if (!open) return; const k = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false); addEventListener('keydown', k); return () => removeEventListener('keydown', k) }, [open])
+  return <>
+    <button type="button" className="inp flex items-center justify-between gap-2 text-left" onClick={() => setOpen(true)} aria-haspopup="listbox" aria-expanded={open}>
+      <span className="truncate">{cur?.[1]}</span><ChevronDown size={16} className="shrink-0 text-mute" /></button>
+    {open && <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 sm:items-center sm:p-4" onClick={() => setOpen(false)}>
+      <div role="listbox" aria-label={label} className="page card max-h-[70vh] w-full max-w-sm overflow-auto rounded-b-none p-2 sm:rounded-b-2xl"
+        style={{ paddingBottom: 'max(.5rem, env(safe-area-inset-bottom))' }} onClick={e => e.stopPropagation()}>
+        <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-mute">{label}</p>
+        {options.map(([v, l]) => <button key={v} role="option" aria-selected={v === value} onClick={() => { onChange(v); setOpen(false) }}
+          className="flex min-h-[48px] w-full items-center justify-between rounded-xl px-3 text-left text-sm font-medium hover:bg-black/5 dark:hover:bg-white/5">
+          <span>{l}</span>{v === value && <Check size={16} className="text-acc" />}</button>)}
+      </div></div>}
+  </>
+}
 
 export const Badge = ({ state }: { state?: string | null }) => {
   const k = stateKind(state), c = k === 'ready' ? 'text-ok' : k === 'error' ? 'text-bad' : 'text-acc'
   return <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-semibold ${c}`}>
-    <span className={`h-1.5 w-1.5 rounded-full bg-current ${k === 'building' ? 'animate-pulse' : ''}`} />{state || 'Belum ada'}</span>
+    <span className={`h-1.5 w-1.5 rounded-full bg-current ${k === 'building' ? 'animate-pulse' : ''}`} />{state || '-'}</span>
 }
 
 type Toast = { id: number; msg: string; err?: boolean }
@@ -41,5 +62,5 @@ export function useAsync<T>(fn: () => Promise<T>, deps: unknown[]) {
   return { data, err, loading, reload: run }
 }
 export const Empty = ({ children }: { children: ReactNode }) => <div className="card p-8 text-center text-sm text-mute">{children}</div>
-export const ErrorBox = ({ msg, retry }: { msg: string; retry?: () => void }) => (
-  <div className="card p-5 text-sm"><p className="text-bad">{msg}</p>{retry && <button className="btn-g mt-3" onClick={retry}>Coba lagi</button>}</div>)
+export const ErrorBox = ({ msg, retry }: { msg: string; retry?: () => void }) => { const { t } = useI18n(); return (
+  <div className="card p-5 text-sm"><p className="text-bad">{msg}</p>{retry && <button className="btn-g mt-3" onClick={retry}>{t('retry')}</button>}</div>) }

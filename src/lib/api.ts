@@ -11,7 +11,7 @@ export async function api<T = any>(path: string, init?: { method?: string; body?
   return d
 }
 export const fmtSize = (n: number) => n < 1024 ? `${n} B` : n < 1048576 ? `${(n / 1024).toFixed(1)} KB` : `${(n / 1048576).toFixed(2)} MB`
-export const fmtTime = (t?: number | null) => t ? new Date(t).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }) : '-'
-export const fmtDur = (ms?: number | null) => ms ? `${Math.round(ms / 1000)} dtk` : '-'
+export const fmtTime = (t?: number | null) => t ? new Date(t).toLocaleString((document.documentElement.lang === 'en' ? 'en-US' : 'id-ID'), { dateStyle: 'medium', timeStyle: 'short' }) : '-'
+export const fmtDur = (ms?: number | null) => ms ? `${Math.round(ms / 1000)} ${document.documentElement.lang === 'en' ? 's' : 'dtk'}` : '-'
 export const toB64 = (f: File) => new Promise<string>((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1]); r.onerror = () => no(r.error); r.readAsDataURL(f) })
 export const stateKind = (s?: string | null) => s === 'READY' ? 'ready' : s === 'ERROR' || s === 'CANCELED' ? 'error' : 'building'

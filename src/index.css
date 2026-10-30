@@ -1,4 +1,4 @@
-@font-face { font-family: 'Made Evolve Sans'; src: url('/fonts/MadeEvolveSans.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Evolve'; src: url('/fonts/Evolve-Bold.otf') format('opentype'); font-weight: 700; font-display: swap; }
 @tailwind base; @tailwind components; @tailwind utilities;
 :root { --bg:#fafafa; --card:#ffffff; --line:rgba(0,0,0,.09); --fg:#0a0a0a; --mute:#6b7280; --acc:#2563eb; --ok:#059669; --bad:#dc2626; }
 .dark { --bg:#0b0b0d; --card:#151518; --line:rgba(255,255,255,.09); --fg:#f5f5f6; --mute:#9a9aa3; --acc:#4f8cff; --ok:#34d399; --bad:#f87171; }
@@ -19,3 +19,5 @@ body, .t { transition: background-color .25s, color .25s, border-color .25s; }
 @keyframes slide { from { transform: translateX(-100%) } to { transform: translateX(250%) } }
 .bar::after { content:''; position:absolute; inset:0; width:40%; background:rgba(255,255,255,.35); animation: slide 1.2s infinite }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important } }
+
+h1, h2, h3, .disp { font-family: 'Evolve', 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 700; letter-spacing: -.01em; }
