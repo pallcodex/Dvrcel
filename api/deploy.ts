@@ -65,7 +65,7 @@ export default handler(async (req) => {
   const list = [...files].map(([file, buf]) => ({ file, buf, sha: crypto.createHash('sha1').update(buf).digest('hex') }))
   for (let i = 0; i < list.length; i += 8)
     await Promise.all(list.slice(i, i + 8).map(f => vercel(token, '/v2/files', { method: 'POST',
-      headers: { 'Content-Type': 'application/octet-stream', 'Content-Length': String(f.buf.length), 'x-vercel-digest': f.sha }, body: f.buf })))
+      headers: { 'Content-Type': 'application/octet-stream', 'Content-Length': String(f.buf.length), 'x-vercel-digest': f.sha }, body: f.buf as unknown as BodyInit })))
 
   // 4. Buat deployment: POST /v13/deployments
   const st = fw === 'static'
