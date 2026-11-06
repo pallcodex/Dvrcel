@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Eye, EyeOff, Link2, Unlink, KeyRound } from 'lucide-react'
+import { Eye, EyeOff, Link2, Unlink, KeyRound, ExternalLink } from 'lucide-react'
 import { api, Session } from '../lib/api'
 import { useToast } from '../components'
 import { useI18n } from '../lib/i18n'
@@ -27,6 +27,7 @@ export default function Connect({ session, setSession }: { session: Session; set
             <input id="tok" className="inp" type={show ? 'text' : 'password'} value={token} onChange={e => setToken(e.target.value)} autoComplete="off" spellCheck={false} placeholder={t('c.ph')} />
             <button className="btn-g !px-0 w-11 shrink-0" onClick={() => setShow(!show)} aria-label={t('c.show')}>{show ? <EyeOff size={18} /> : <Eye size={18} />}</button>
           </div>
+          <a className="btn-g w-full" href="https://vercel.com/account/settings/tokens" target="_blank" rel="noreferrer"><ExternalLink size={16} /> {t('c.getToken')}</a>
           <p className="text-xs text-mute">{t('c.hint')}</p>
           <button className="btn-p" disabled={busy || token.length < 20} onClick={() => act(false)}><Link2 size={16} /> {busy ? t('c.verifying') : t('c.connect')}</button>
         </div>)}

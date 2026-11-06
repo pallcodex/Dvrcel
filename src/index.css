@@ -1,7 +1,7 @@
 @font-face { font-family: 'Evolve'; src: url('/fonts/Evolve-Bold.otf') format('opentype'); font-weight: 700; font-display: swap; }
 @tailwind base; @tailwind components; @tailwind utilities;
-:root { --bg:#fafafa; --card:#ffffff; --line:rgba(0,0,0,.09); --fg:#0a0a0a; --mute:#6b7280; --acc:#2563eb; --ok:#059669; --bad:#dc2626; }
-.dark { --bg:#0b0b0d; --card:#151518; --line:rgba(255,255,255,.09); --fg:#f5f5f6; --mute:#9a9aa3; --acc:#4f8cff; --ok:#34d399; --bad:#f87171; }
+:root { --bg:#ffffff; --card:#ffffff; --line:rgba(0,0,0,.14); --fg:#000000; --mute:#595959; --acc:#000000; --on:#ffffff; --ok:#000000; --bad:#000000; }
+.dark { --bg:#000000; --card:#0a0a0a; --line:rgba(255,255,255,.18); --fg:#ffffff; --mute:#a3a3a3; --acc:#ffffff; --on:#000000; --ok:#ffffff; --bad:#ffffff; }
 html, body { background: var(--bg); color: var(--fg); overflow-x: hidden; }
 body, .t { transition: background-color .25s, color .25s, border-color .25s; }
 * { border-color: var(--line); }
@@ -9,7 +9,7 @@ body, .t { transition: background-color .25s, color .25s, border-color .25s; }
   .card { @apply rounded-2xl border bg-card t; box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px -12px rgba(0,0,0,.12); }
   .glass { background: color-mix(in srgb, var(--card) 70%, transparent); backdrop-filter: blur(16px); }
   .btn { @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl border px-4 text-sm font-semibold t active:scale-[.97] disabled:opacity-50 disabled:pointer-events-none; transition: transform .12s, background-color .2s; }
-  .btn-p { @apply btn border-transparent bg-acc text-white hover:opacity-90; }
+  .btn-p { @apply btn border-transparent bg-acc text-on hover:opacity-90; }
   .btn-g { @apply btn bg-card hover:bg-black/5 dark:hover:bg-white/5; }
   .inp { @apply min-h-[44px] w-full rounded-xl border bg-transparent px-3 text-base outline-none t focus:border-acc; }
   .lbl { @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-mute; }

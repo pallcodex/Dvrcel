@@ -5,7 +5,7 @@ import { useI18n, Lang } from '../lib/i18n'
 import Connect from './Connect'
 
 export default function Settings({ session, setSession, theme }: { session: Session; setSession: (s: Session) => void; theme: ReturnType<typeof useTheme> }) {
-  const { t, lang, setLang } = useI18n(), on = 'border-transparent bg-acc text-white'
+  const { t, lang, setLang } = useI18n(), on = 'border-transparent bg-acc text-on'
   const sys = () => { try { localStorage.removeItem('dvrcel-theme') } catch { /* */ } theme.set(matchMedia('(prefers-color-scheme: dark)').matches); try { localStorage.removeItem('dvrcel-theme') } catch { /* */ } }
   return <div className="page mx-auto max-w-3xl space-y-5"><h1 className="text-2xl font-bold">{t('st.title')}</h1>
     <section className="card p-5"><h2 className="mb-2 font-semibold">{t('st.acc')}</h2>

@@ -5,8 +5,8 @@ import { stateKind } from './lib/api'
 
 export const Logo = ({ size = 28 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden><rect width="32" height="32" rx="9" fill="var(--acc)" />
-    <path d="M10 22V10h5.5a6 6 0 0 1 0 12z" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinejoin="round" />
-    <path d="M18 15.5l3-3 3 3" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></svg>)
+    <path d="M10 22V10h5.5a6 6 0 0 1 0 12z" fill="none" stroke="var(--on)" strokeWidth="2.4" strokeLinejoin="round" />
+    <path d="M18 15.5l3-3 3 3" fill="none" stroke="var(--on)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></svg>)
 
 export function useTheme() {
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'))

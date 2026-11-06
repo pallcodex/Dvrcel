@@ -50,7 +50,7 @@ export function HistoryPage() {
   const rows = (data?.deployments || []).filter(d => f === 'all' || stateKind(d.state) === f)
   return <div className="page mx-auto max-w-4xl space-y-4"><div><h1 className="text-2xl font-bold">{t('h.title')}</h1><p className="mt-1 text-sm text-mute">{t('h.hint')}</p></div>
     <div className="flex gap-2 overflow-x-auto">{[['all', t('l.allShort')], ['ready', t('l.ready')], ['building', t('l.building')], ['error', t('l.error')]].map(([v, l]) =>
-      <button key={v} onClick={() => setF(v)} className={`btn ${f === v ? 'border-transparent bg-acc text-white' : 'bg-card'}`}>{l}</button>)}</div>
+      <button key={v} onClick={() => setF(v)} className={`btn ${f === v ? 'border-transparent bg-acc text-on' : 'bg-card'}`}>{l}</button>)}</div>
     {err ? <ErrorBox msg={err} retry={reload} /> : loading ? <Loading /> : rows.length === 0 ? <Empty>{t('h.none')}</Empty> :
       <div className="card divide-y">{rows.map(d => <button key={d.id} onClick={() => setSel(d)} className="flex w-full flex-col gap-1 p-4 text-left text-sm hover:bg-black/[.03] dark:hover:bg-white/[.04] sm:flex-row sm:items-center sm:gap-4">
         <span className="font-semibold sm:w-40 sm:truncate">{d.name}</span><span className="flex-1 truncate text-xs text-mute">{d.id}</span>
