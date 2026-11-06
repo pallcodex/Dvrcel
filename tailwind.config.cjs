@@ -1,4 +1,4 @@
-const v = (n) => ({ opacityValue }) => opacityValue === undefined ? `var(--${n})` : `color-mix(in srgb, var(--${n}) ${Number(opacityValue) * 100}%, transparent)`
+const v = (n) => ({ opacityValue }) => opacityValue === undefined ? `var(--${n})` : `color-mix(in srgb, var(--${n}) calc(${opacityValue} * 100%), transparent)`
 module.exports = {
   darkMode: 'class',
   content: ['./index.html', './src/**/*.{ts,tsx}'],
